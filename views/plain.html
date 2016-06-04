@@ -14,10 +14,10 @@
     <div class="sticky-footer-wrapper">
       <div class="masthead">
         <h1 class="title">Summarizer</h1>
-        <p class="tagline">extract the essence, from thousands of product summaries, in ten sentences</p>
+        <p class="tagline">extract the essence of thousands of reviews, in ten sentences</p>
 
         <div class="Demo">
-          <!form action="https://twitter.com/search" method="get">
+          <!--form action="https://twitter.com/search" method="get"> -->
             <input type="hidden" name="mode" value="users">
             <div class="Typeahead Typeahead--twitterUsers">
               <div class="u-posRelative">
@@ -28,7 +28,7 @@
               <div class="Typeahead-menu"></div>
             </div>
             <button class="u-hidden" type="submit">blah</button>
-          <!/form>
+          <!--/form> -->
         </div>
         
 
@@ -43,8 +43,8 @@
       <div class="ProfileCard u-cf">
         
         <div class="ProfileCard-details">
-          <div class="ProfileCard-realName">{{team}}</div>
-          <!div class="ProfileCard-description">{{movie_asin}}<!/div>
+          <div class="ProfileCard-realName">{{title}}</div>
+         <!-- <div class="ProfileCard-description">{{summary_nonneg}}</div> -->
         </div>
         
       </div>
@@ -55,9 +55,14 @@
     </script>
     
    
+    
+    <script id="summary-template" type="text/x-handlebars-template">
+      <p><strong>{{summary_nonneg}}</strong></p>
+    </script>   
+   
     <script src="../javascripts/handlebars.js"></script>
     <script src="../javascripts/jquery-1.12.4.min.js"></script>
-    <!script src='http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js?ver=1.12.4'><!/script>
+    <!--<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js?ver=1.12.4'></script> -->
     <script src="../releases/typeahead.bundle.js"></script>
     <script>
       !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");

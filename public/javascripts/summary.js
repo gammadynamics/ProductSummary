@@ -1,40 +1,44 @@
 $(document).ready(function() {
-  var engine,  template, empty;
+  var summary_list, engine,  suggestion_template, empty_template, summ_nonneg_template;
 
   $.support.cors = true;
   
   //pre-compile Handlebars templates
-  template = Handlebars.compile($("#result-template").html());
-  empty = Handlebars.compile($("#empty-template").html());
-
+  suggestion_template = Handlebars.compile($("#result-template").html());
+  empty_template = Handlebars.compile($("#empty-template").html());
+  summary_nonneg_template = Handlebars.compile($("#summary-template").html());
+  summary_list = '../data/summaries.json';
+  
+  //var context = {summary_nonneg : "My New Post"};
+  //summary_nonneg_template(context);
+  
   engine = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('team'), //('name', 'screen_name'),
+    initialize: true, //if false, need engine.initialize() later
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'), //,'avg_rating','summary_nonneg','summary_nonpos'), //('name', 'screen_name'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     //dupDetector: function(a, b) { return a.id_str === b.id_str; },
-    identify: function(o) { return o.team; }, //{ return o.id_str; },
-    prefetch: '../data/nfl.json' //'../data/films/post_1960.json',
+    identify: function(o) { return o.title; }, //{ return o.id_str; },
+    prefetch: summary_list, //'../data/films/post_1960.json'
+    //transform: function(response) {
+     //   return response.summary_nonneg;
+    //  },
+    //prefetch: $.map(summary_list, function(obj) { 
+     //       return { title : obj.title, eg: obj.summary_nonneg}; }) 
     // prefetch: $.map(country_list, function(item) {return {value: item};})
-    //remote: 
-    //{
-    //  url: "s.php?s=%QUERY", //'../data/%QUERY.json' //'../data/films/queries/%QUERY.json',
-    //  wildcard: '%QUERY'
-    //}
-    
+       
   });
 
  
-  
-  // ensure default users are read on initialization
-  engine.get('Detroit Lions', 'Green Bay Packers', 'Chicago Bears')
-  //N.B. comment out the async requests when data is local; otherwise 'empty' template requires engine.remote
-  function engineWithDefaults(q, sync) {    //engineWithDefaults(q, sync, async) {
+  // ensure defaults are read on initialization
+  //engine.get("Rudolph the Red Nosed Reindeer", "The Passion of the Christ", "Visual Bible: The Book of Matthew [VHS]")
+  function engineWithDefaults(q, sync) {
     if (q === '') {
-      sync(engine.get('Detroit Lions', 'Green Bay Packers', 'Chicago Bears'));
+      sync(engine.get("Rudolph the Red Nosed Reindeer", "The Passion of the Christ", "Visual Bible: The Book of Matthew [VHS]"));
       //async([]);
     }
 
     else {  
-      engine.search(q, sync); //engine.search(q, sync, async);
+      engine.search(q, sync); 
     }
   }
 
@@ -55,28 +59,24 @@ $(document).ready(function() {
     }
     }, 
     {
-    name: 'nfl-teams',
+    name: 'summaries',
     source: engineWithDefaults,
-    display: 'team', //screen_name',
+    displayKey: 'title', //screen_name',
     
     templates: {
-     suggestion: template,
-     empty: empty
-     
+     suggestion: suggestion_template, //function (data) {consloe.log(data);},
+     empty: empty_template,
     }
   })
-  //.on('typeahead:asyncrequest', function() {
-  //  $('.Typeahead-spinner').show();
-  //})
-  //.on('typeahead:asynccancel typeahead:asyncreceive', function() {
-  //  $('.Typeahead-spinner').hide();
-  //});
+  
   .on('typeahead:render', function() {
     $('.Typeahead-spinner').show();
   })
-  .on('typeahead:select', function() {
+  .on('typeahead:select', function(event, suggestion){            
     $('.Typeahead-spinner').hide();
-    console.log(this.value)
+     console.log(suggestion.title);
+    console.log(suggestion.summary_nonneg);
+    
 });
   
 });
