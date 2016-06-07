@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../stylesheets/normalize.min.css">
     <link rel="stylesheet" href="../stylesheets/main.css">
+    <!--<link rel="stylesheet" href="../stylesheets/footer.css">-->
+    <link rel="stylesheet" href="../stylesheets/footer-distributed.css">
     
     
   </head>
@@ -14,20 +16,21 @@
     <div class="sticky-footer-wrapper">
       <div class="masthead">
         <h1 class="title">Summarizer</h1>
-        <p class="tagline">extract the essence of thousands of reviews, in ten sentences</p>
+        <p class="tagline">extract the essence of hundreds or thousands of Amazon reviews,</p>
+        <p style="font-weight:bold;">in ten sentences!</p>
 
         <div class="Demo">
           <!--form action="https://twitter.com/search" method="get"> -->
-            <input type="hidden" name="mode" value="users">
-            <div class="Typeahead Typeahead--twitterUsers">
+            <!--<input type="hidden" name="mode" value="users">-->
+            <div class="Typeahead Typeahead--twitterUsers"> 
               <div class="u-posRelative">
                 <input class="Typeahead-hint" type="text" tabindex="-1" readonly>
                 <input class="Typeahead-input" id="demo-input" type="text" name="q" placeholder="Search movies...">
                 <img class="Typeahead-spinner" src="../images/spinner.gif">
-              </div>
-              <div class="Typeahead-menu"></div>
-            </div>
-            <button class="u-hidden" type="submit">blah</button>
+              <!--</div> -->
+              <div class="Typeahead-menu"></div> 
+            </div> 
+            <!--<button class="u-hidden" type="submit">blah</button> -->
           <!--/form> -->
         </div>
         
@@ -44,7 +47,6 @@
         
         <div class="ProfileCard-details">
           <div class="ProfileCard-realName">{{title}}</div>
-         <!-- <div class="ProfileCard-description">{{summary_nonneg}}</div> -->
         </div>
         
       </div>
@@ -53,12 +55,41 @@
     <script id="empty-template" type="text/x-handlebars-template">
       <div class="EmptyMessage">Nothing found. Try another movie! </div>
     </script>
-    
-   
+       
     
     <script id="summary-template" type="text/x-handlebars-template">
-      <p><strong>{{summary_nonneg}}</strong></p>
-    </script>   
+      <div class="Summary-10">
+        <img src="../images/thumbsneutral.jpg"  height="20" width="20">
+        <img src="../images/thumbsup.jpg"  height="20" width="20">
+        <span style="font-weight:bold;">
+           Summary of 3-5 star reviews:</span>
+          <p>{{summary_nonneg}}</p>
+      </div>
+      <div class="Summary-10">
+        <img src="../images/thumbsneutral.jpg"  height="20" width="20">
+        <img src="../images/thumbsdown.jpg"  height="20" width="20">
+        <span style="font-weight:bold;">
+           Summary of 1-3 star reviews:</span>
+          <p>{{summary_nonpos}}</p>
+      </div>  
+    </script> 
+    
+    <div id="summary"> </div>
+   
+    <footer class="footer-distributed">
+      <div class="footer-center">
+
+			  <div>
+					<p><span>Data: 4.6 million reviews from the Amazon "Movies and TV"" category, spanning
+             May 1996 - July 2014, as released here:
+            <a href="http://jmcauley.ucsd.edu/data/amazon/links.html">Movies and TV Amazon review data</a></span>
+            <span>Retained are only 8300 movies, singled out as having at least ten 1-3 and 3-5 star reviews.</span>
+            <span> For movies with large number of reviews, only the 256 latest reviews are used for the summaries.</span>
+            <span> Copyright:<img src ="../images/copyright.jpg" height="10" width="10">2016 GammaDynamics, LLC; <a href="mailto:info@gammadynamics.com">info@gammadynamics.com</a></span> </p>
+				</div>
+				
+      </div>
+	  </div>
    
     <script src="../javascripts/handlebars.js"></script>
     <script src="../javascripts/jquery-1.12.4.min.js"></script>

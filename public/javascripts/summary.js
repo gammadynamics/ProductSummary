@@ -1,16 +1,20 @@
 $(document).ready(function() {
-  var summary_list, engine,  suggestion_template, empty_template, summ_nonneg_template;
+  var summary_list, engine,  suggestion_template, empty_template, summary_template;
 
   $.support.cors = true;
   
   //pre-compile Handlebars templates
   suggestion_template = Handlebars.compile($("#result-template").html());
   empty_template = Handlebars.compile($("#empty-template").html());
-  summary_nonneg_template = Handlebars.compile($("#summary-template").html());
-  summary_list = '../data/summaries.json';
+  summary_template = Handlebars.compile($("#summary-template").html());
+  //data source
+  summary_list = '../data/movies_id.json'; //'../data/summaries_short.json';
+  //'../data/tr_reviews_summary_sentence_v14.8a_v14.8.json';  
   
-  //var context = {summary_nonneg : "My New Post"};
-  //summary_nonneg_template(context);
+  //var context = {title: "Start", summary: "My New Post"};
+  //console.log(context.title);
+  //var myhtml    = summary_nonneg_template(context);    
+  //$(myhtml).appendTo('#summary');
   
   engine = new Bloodhound({
     initialize: true, //if false, need engine.initialize() later
@@ -18,14 +22,14 @@ $(document).ready(function() {
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     //dupDetector: function(a, b) { return a.id_str === b.id_str; },
     identify: function(o) { return o.title; }, //{ return o.id_str; },
-    prefetch: summary_list, //'../data/films/post_1960.json'
+    prefetch: summary_list //'../data/films/post_1960.json'
     //transform: function(response) {
      //   return response.summary_nonneg;
     //  },
     //prefetch: $.map(summary_list, function(obj) { 
      //       return { title : obj.title, eg: obj.summary_nonneg}; }) 
     // prefetch: $.map(country_list, function(item) {return {value: item};})
-       
+    
   });
 
  
@@ -64,7 +68,7 @@ $(document).ready(function() {
     displayKey: 'title', //screen_name',
     
     templates: {
-     suggestion: suggestion_template, //function (data) {consloe.log(data);},
+     suggestion:  suggestion_template, //function (data) {console.log(data);}, 
      empty: empty_template,
     }
   })
@@ -72,11 +76,12 @@ $(document).ready(function() {
   .on('typeahead:render', function() {
     $('.Typeahead-spinner').show();
   })
-  .on('typeahead:select', function(event, suggestion){            
+  .on('typeahead:select', function(e, record){            
     $('.Typeahead-spinner').hide();
-     console.log(suggestion.title);
-    console.log(suggestion.summary_nonneg);
-    
+    //console.log(record.title);
+    //console.log(record.summary_nonneg);
+    $("#summary").html( $(summary_template(record)))
 });
-  
+ 
+
 });
