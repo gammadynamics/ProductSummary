@@ -9,6 +9,7 @@ Desktop.ini
 $RECYCLE.BIN/
 node_modules/
 typings/
+ProductSummary/
 
 
 # Windows Installer files
@@ -30,6 +31,7 @@ typings/
 *.suo
 
 #Various
+summaries.json
 
 
 # =========================
