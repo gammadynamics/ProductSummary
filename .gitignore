@@ -10,6 +10,7 @@ $RECYCLE.BIN/
 node_modules/
 typings/
 
+
 # Windows Installer files
 *.cab
 *.msi
@@ -29,17 +30,7 @@ typings/
 *.suo
 
 #Various
-*.mat
-*.png
-*.json
-*.zip
-*.txt
-*.npz
-*.csv
-*.dat
-*.hdf5
-*.pkl
-*.htm
+
 
 # =========================
 # Operating System Files
