@@ -8,7 +8,7 @@ $(document).ready(function() {
   empty_template = Handlebars.compile($("#empty-template").html());
   summary_template = Handlebars.compile($("#summary-template").html());
   //data source
-  summary_list = '../data/movies_id.json'; //'../data/summaries_short.json';
+  summary_list = '../data/tr_reviews_summary_sentence_v14.8a_v14.8.json'; //'../data/summaries_short.json';
   //'../data/tr_reviews_summary_sentence_v14.8a_v14.8.json';  
   
   //var context = {title: "Start", summary: "My New Post"};
